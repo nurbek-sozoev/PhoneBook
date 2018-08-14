@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="container">
+      <span class="contact-name">
+        {{contact.name}}
+      </span>
+    </div>
+    <ul class="container contact-items">
+      <li class="contact-job"><span class="fa fa-briefcase"></span>{{contact.organization}}</li>
+      <li class="contact-phone"><span class="fa fa-at"></span>{{contact.email}}</li>
+      <ng-container *ngFor="let phoneNumber of contact.phoneNumbers;">
+        <li class="contact-phone">
+          <span *ngIf="phoneNumber.type == 'home'" class="fa fa-phone"></span>
+          <span *ngIf="phoneNumber.type == 'work'" class="fa fa-phone-square"></span>
+          <span *ngIf="phoneNumber.type == 'mobile'" class="fa fa-mobile-alt"></span>
+          {{phoneNumber.number}}
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>

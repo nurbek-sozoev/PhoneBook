@@ -1,0 +1,22 @@
+.contact-items li{
+  list-style: none;
+}
+
+.contact-items span{
+  padding-right: 10px;
+}
+
+.contact-name{
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.contact-job{
+  font-size: 16px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.contact-phone{
+  font-size: 16px;
+}

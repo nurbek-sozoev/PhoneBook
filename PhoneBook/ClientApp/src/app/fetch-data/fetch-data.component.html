@@ -1,24 +1,16 @@
-<h1>Weather forecast</h1>
+<p *ngIf="!contacts"><em>Loading...</em></p>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table' *ngIf="forecasts">
+<table class="table" *ngIf="contacts">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th>Контакты</th>
+      <th>Опции</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.dateFormatted }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let contact of contacts">
+      <td><app-contact-row [contact]="contact"></app-contact-row></td>
+      <td></td>
     </tr>
   </tbody>
 </table>
