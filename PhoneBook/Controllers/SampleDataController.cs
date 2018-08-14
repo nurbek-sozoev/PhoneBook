@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PhoneBook.Controllers
@@ -9,33 +6,88 @@ namespace PhoneBook.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        public IEnumerable<Contact> Contacts()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return new List<Contact>(new []
             {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                new Contact
+                {
+                    Name = "Созоев Нурбек Алмасович",
+                    Email = "sozoev@gmail.com",
+                    Organization = "IT-Attractor",
+                    PhoneNumbers = new List<PhoneNumber>(new[]
+                    {
+                        new PhoneNumber
+                        {
+                            Number = "+996 708 699119",
+                            Type = "mobile"
+                        },
+                        new PhoneNumber
+                        {
+                            Number = "+996 708 699119",
+                            Type = "home"
+                        },
+                        new PhoneNumber
+                        {
+                            Number = "+996 708 699119",
+                            Type = "work"
+                        }
+                    })
+                },
+                new Contact
+                {
+                    Name = "Петров Петр Алесеевич",
+                    Email = "petr@gmail.com",
+                    Organization = "SoftTechical Company LTD",
+                    PhoneNumbers = new List<PhoneNumber>(new[]
+                    {
+                        new PhoneNumber
+                        {
+                            Number = "+996 788 600119",
+                            Type = "mobile"
+                        },
+                        new PhoneNumber
+                        {
+                            Number = "+996 998 699009",
+                            Type = "home"
+                        }
+                    })
+                },
+                new Contact
+                {
+                    Name = "Иванов Михаил Алесеевич",
+                    Email = "ivin@gmail.com",
+                    Organization = "MicroHard Techical Company LTD",
+                    PhoneNumbers = new List<PhoneNumber>(new[]
+                    {
+                        new PhoneNumber
+                        {
+                            Number = "+996 998 900109",
+                            Type = "mobile"
+                        },
+                        new PhoneNumber
+                        {
+                            Number = "+996 888 999009",
+                            Type = "work"
+                        }
+                    })
+                },
             });
         }
 
-        public class WeatherForecast
+        public class Contact
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Organization { get; set; }
+            public IEnumerable<PhoneNumber> PhoneNumbers { get; set; }
+        }
 
-            public int TemperatureF
-            {
-                get { return 32 + (int) (TemperatureC / 0.5556); }
-            }
+        public class PhoneNumber
+        {
+            public string Type { get; set; }
+            public string Number { get; set; }
         }
     }
 }
