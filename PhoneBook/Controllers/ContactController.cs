@@ -27,37 +27,32 @@ namespace PhoneBook.Controllers
         [HttpGet("{id}", Name = "GetContact")]
         public ActionResult<Contact> FindById(long id)
         {
-            return new Contact
-            {
-                Id = 1,
-                Name = "Созоев Нурбек Алмасович",
-                Email = "sozoev@gmail.com",
-                Organization = "IT-Attractor",
-                PhoneNumbers = new List<PhoneNumber>(new[]
-                {
-                    new PhoneNumber
-                    {
-                        Number = "+996 708 699119",
-                        Type = "mobile"
-                    },
-                    new PhoneNumber
-                    {
-                        Number = "+996 708 699119",
-                        Type = "home"
-                    },
-                    new PhoneNumber
-                    {
-                        Number = "+996 708 699119",
-                        Type = "work"
-                    }
-                })
-            };
+            Console.WriteLine($"Find contact by {id}");
+            return _filter.FindById(id);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Contact contact)
+        {
+            Console.WriteLine($"Create contact {contact.Name}");
+            contact.Id = _filter.LastId();
+            _filter.Add(contact);
+            return NoContent();
         }
 
         [HttpPut]
         public IActionResult Update(Contact contact)
         {
-            Console.WriteLine($"Update contact {contact.Id}");
+            Console.WriteLine($"Update contact {contact.Name}");
+            _filter.Save(contact);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            Console.WriteLine($"Delete contact {id}");
+            _filter.Delete(id);
             return NoContent();
         }
     }

@@ -1,6 +1,6 @@
 <div class="row" style="padding-bottom: 10px; padding-top: 10px">
   <div class="col-sm-8">
-    <a class="btn btn-info btn-sm" routerLink="/contacts/new">
+    <a class="btn btn-info btn-sm" routerLink="/contacts/create">
       <i class="fa fa-plus"></i>
       Создать новый
     </a>
@@ -34,9 +34,9 @@
           <a role="button" class="btn btn-info btn-sm" routerLink="/contacts/{{contact.id}}">
             <i class="fa fa-edit"></i>
           </a>
-          <a role="button" class="btn btn-danger btn-sm">
+          <button type="button" class="btn btn-danger btn-sm" (click)="delete(contact)">
             <i class="fa fa-trash"></i>
-          </a>
+          </button>
         </td>
       </tr>
       </tbody>

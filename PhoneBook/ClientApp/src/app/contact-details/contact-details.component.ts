@@ -3,6 +3,7 @@ import { Contact } from "../models/contact";
 import { ContactService } from "../contact.service";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
+import {PhoneNumber} from "../models/phone-number";
 
 @Component({
   selector: 'app-contact-details',
@@ -34,7 +35,18 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   update(): void {
-    this.contactService.updateContact(this.contact).subscribe(() => this.goBack())
+    if (this.contact.name && this.contact.organization) {
+      this.contactService.updateContact(this.contact).subscribe(() => this.goBack())
+    } else {
+      alert('Заполните форму!');
+    }
   }
 
+  addPhone(type: string, phone: string): void{
+    this.contact.phoneNumbers.push({type: type, number: phone} as PhoneNumber)
+  }
+
+  deletePhone(phoneNumber: PhoneNumber): void{
+    this.contact.phoneNumbers = this.contact.phoneNumbers.filter(pn => pn !== phoneNumber);
+  }
 }

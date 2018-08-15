@@ -18,6 +18,10 @@ export class ContactListComponent implements OnInit {
     this.contactService.searchContacts(searchCriteria).subscribe(contacts => this.contacts = contacts);
   }
 
+  delete(contact: Contact) {
+    this.contactService.deleteContact(contact).subscribe(() => this.search(''));
+  }
+
   ngOnInit() {
     this.search('');
   }

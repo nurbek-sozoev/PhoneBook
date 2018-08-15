@@ -31,7 +31,21 @@ export class ContactService {
     );
   }
 
-  updateContact (contact: Contact): Observable<any> {
+  createContact (contact: Contact): Observable<Contact> {
+    return this.http.post(this.contactsUrl, contact, httpOptions).pipe(
+      tap(_ => console.log("update contact")),
+      catchError(this.handleError<any>('updateContact'))
+    );
+  }
+
+  deleteContact(contact: Contact): Observable<Contact> {
+    return this.http.delete(`${this.contactsUrl}/${contact.id}`, httpOptions).pipe(
+      tap(_ => console.log("delete contact")),
+      catchError(this.handleError<any>('deleteContact'))
+    );
+  }
+
+  updateContact (contact: Contact): Observable<Contact> {
     return this.http.put(this.contactsUrl, contact, httpOptions).pipe(
       tap(_ => console.log("update contact")),
       catchError(this.handleError<any>('updateContact'))

@@ -36,7 +36,7 @@
           <input id="inputPhone" #phoneNumberInput type="text" class="form-control" placeholder="Номер телефона">
         </div>
         <div class="col">
-          <button type="button" class="btn btn-info">Добавить</button>
+          <button type="button" (click)="addPhone(phoneTypeInput.value, phoneNumberInput.value)" class="btn btn-info">Добавить</button>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
               {{phoneNumber.type}}
             </td>
             <td>
-              <button type="button" class="btn btn-danger btn-sm">
+              <button type="button" (click)="deletePhone(phoneNumber)" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i>
               </button>
             </td>

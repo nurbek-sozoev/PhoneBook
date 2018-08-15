@@ -12,6 +12,7 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 import { ContactListComponent}  from "./contact-list/contact-list.component";
 import { NavbarComponent } from './navbar/navbar.component';
 import {AppRoutesModule} from "./app.routes.module";
+import { ContactCreateComponent } from './contact-create/contact-create.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {AppRoutesModule} from "./app.routes.module";
     ContactListComponent,
     ContactRowComponent,
     ContactDetailsComponent,
-    NavbarComponent
+    NavbarComponent,
+    ContactCreateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
