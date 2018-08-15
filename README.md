@@ -11,3 +11,7 @@
 cd PhoneBook 
 dotnet run --project PhoneBook.csproj
 ```
+
+# Что осталось доделать (TODO)
+- Механизм аутентификации/авторизации пользователя
+- Прикрутить БД
