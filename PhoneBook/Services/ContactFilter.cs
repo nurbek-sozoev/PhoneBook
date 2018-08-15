@@ -1,15 +1,17 @@
+﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using PhoneBook.ViewModels;
 
-namespace PhoneBook.Controllers
+namespace PhoneBook.Services
 {
-    [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class ContactFilter : IContactFilter
     {
-        [HttpGet("[action]")]
-        public IEnumerable<Contact> Contacts()
+        private readonly List<Contact> _contacts;
+
+        public ContactFilter()
         {
-            return new List<Contact>(new []
+            _contacts = new List<Contact>(new []
             {
                 new Contact
                 {
@@ -72,22 +74,25 @@ namespace PhoneBook.Controllers
                             Type = "work"
                         }
                     })
-                },
+                }
             });
         }
 
-        public class Contact
+        public ContactFilter(List<Contact> contacts)
         {
-            public string Name { get; set; }
-            public string Email { get; set; }
-            public string Organization { get; set; }
-            public IEnumerable<PhoneNumber> PhoneNumbers { get; set; }
+            _contacts = contacts;
         }
 
-        public class PhoneNumber
+        public List<Contact> Search(string searchCriteria)
         {
-            public string Type { get; set; }
-            public string Number { get; set; }
+            if (string.IsNullOrEmpty(searchCriteria))
+                return _contacts;
+
+            var criteria = searchCriteria.ToLower().Trim();
+
+            return _contacts.Where(
+                    c => c.ToString().ToLower().Contains(criteria)
+                ).ToList();
         }
     }
 }
