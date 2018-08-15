@@ -7,14 +7,14 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ContactService {
-  private contactsUrl = 'api/PhoneBook/Contacts';
+  private contactsUrl = 'api/contact';
 
   constructor(private http: HttpClient) {}
 
-  searchContacts(search: string): Observable<Contact[]> {
-    search = search.trim();
+  searchContacts(searchCriteria: string): Observable<Contact[]> {
+    searchCriteria = searchCriteria.trim();
 
-    return this.http.get<Contact[]>(`${this.contactsUrl}/?searchCriteria=${search}`).pipe(
+    return this.http.get<Contact[]>(`${this.contactsUrl}/?searchCriteria=${searchCriteria}`).pipe(
       tap(contacts => console.log("fetched data")),
       catchError(this.handleError<Contact[]>('searchContacts', []))
     );

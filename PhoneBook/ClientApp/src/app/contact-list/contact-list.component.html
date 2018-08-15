@@ -1,22 +1,24 @@
-<div class="row">
-  <div class="col-sm-12">
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand">Мои контакты</a>
-      <div class="input-group col-md-4">
-        <input #searchInput class="form-control py-2 border-right-0 border" (keyup)="search(searchInput.value)" type="search" placeholder="поиск">
-        <span class="input-group-append">
+<div class="row" style="padding-bottom: 10px; padding-top: 10px">
+  <div class="col-sm-8">
+    <a class="btn btn-info btn-sm" routerLink="/contacts/new">
+      <i class="fa fa-plus"></i>
+      Создать новый
+    </a>
+  </div>
+  <div class="input-group col-sm-4">
+    <input #searchInput class="form-control py-2 border-right-0 border" (keyup)="search(searchInput.value)" type="search" placeholder="поиск">
+    <span class="input-group-append">
           <button class="btn btn-outline-secondary border-left-0 border" (click)="search(searchInput.value)" type="button">
               <i class="fa fa-search"></i>
           </button>
         </span>
-      </div>
-    </nav>
   </div>
 </div>
+
 <div class="row">
   <div class="col-sm-12">
-    <p *ngIf="!contacts$"><em>Loading...</em></p>
-    <table class="table" *ngIf="contacts$">
+    <p *ngIf="!contacts"><em>Загрузка...</em></p>
+    <table class="table" *ngIf="contacts">
       <thead>
       <tr>
         <th>Контакты</th>
@@ -24,7 +26,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let contact of contacts$ | async">
+      <tr *ngFor="let contact of contacts | async">
         <td>
           <app-contact-row [contact]="contact"></app-contact-row>
         </td>

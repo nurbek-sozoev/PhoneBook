@@ -6,24 +6,27 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ContactRowComponent } from './contact-row/contact-row.component';
 import { ContactService } from "./contact.service";
+import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import { ContactListComponent}  from "./contact-list/contact-list.component";
+import { NavbarComponent } from './navbar/navbar.component';
+import {AppRoutesModule} from "./app.routes.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    FetchDataComponent,
-    ContactRowComponent
+    ContactListComponent,
+    ContactRowComponent,
+    ContactDetailsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     NgbModule,
-    RouterModule.forRoot([
-      { path: '', component: FetchDataComponent, pathMatch: 'full' }
-    ])
+    AppRoutesModule
   ],
   providers: [
     ContactService

@@ -6,12 +6,12 @@ import { Subject } from "rxjs/Subject";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 
 @Component({
-  selector: 'app-fetch-data',
-  templateUrl: './fetch-data.component.html'
+  selector: 'app-contact-list',
+  templateUrl: './contact-list.component.html'
 })
 
-export class FetchDataComponent {
-  contacts$: Observable<Contact[]>;
+export class ContactListComponent {
+  contacts: Observable<Contact[]>;
 
   private searchCriterias = new Subject<string>();
 
@@ -25,7 +25,7 @@ export class FetchDataComponent {
   }
 
   ngOnInit(): void {
-    this.contacts$ = this.searchCriterias.pipe(
+    this.contacts = this.searchCriterias.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => this.contactService.searchContacts(term))
