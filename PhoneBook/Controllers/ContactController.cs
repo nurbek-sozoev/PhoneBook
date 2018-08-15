@@ -53,5 +53,12 @@ namespace PhoneBook.Controllers
                 })
             };
         }
+
+        [HttpPut]
+        public IActionResult Update(Contact contact)
+        {
+            Console.WriteLine($"Update contact {contact.Id}");
+            return NoContent();
+        }
     }
 }

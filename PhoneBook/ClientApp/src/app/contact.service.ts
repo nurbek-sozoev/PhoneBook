@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Contact } from "./models/contact";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, tap } from "rxjs/operators";
 import { of } from "rxjs/observable/of";
 import { Observable } from "rxjs/Observable";
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class ContactService {
@@ -24,6 +28,13 @@ export class ContactService {
     return this.http.get<Contact>(`${this.contactsUrl}/${id}`).pipe(
       tap(_ => console.log("fetched contact")),
       catchError(this.handleError<Contact>(`getHero id=${id}`))
+    );
+  }
+
+  updateContact (contact: Contact): Observable<any> {
+    return this.http.put(this.contactsUrl, contact, httpOptions).pipe(
+      tap(_ => console.log("update contact")),
+      catchError(this.handleError<any>('updateContact'))
     );
   }
 
