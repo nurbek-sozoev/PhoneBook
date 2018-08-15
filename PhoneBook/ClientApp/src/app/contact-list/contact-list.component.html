@@ -26,17 +26,17 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let contact of contacts | async">
+      <tr *ngFor="let contact of contacts">
         <td>
           <app-contact-row [contact]="contact"></app-contact-row>
         </td>
         <td>
-          <button type="button" class="btn btn-info btn-sm">
+          <a role="button" class="btn btn-info btn-sm" routerLink="/contacts/{{contact.id}}">
             <i class="fa fa-edit"></i>
-          </button>
-          <button type="button" class="btn btn-danger btn-sm">
+          </a>
+          <a role="button" class="btn btn-danger btn-sm">
             <i class="fa fa-trash"></i>
-          </button>
+          </a>
         </td>
       </tr>
       </tbody>

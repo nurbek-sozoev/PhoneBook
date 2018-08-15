@@ -15,8 +15,15 @@ export class ContactService {
     searchCriteria = searchCriteria.trim();
 
     return this.http.get<Contact[]>(`${this.contactsUrl}/?searchCriteria=${searchCriteria}`).pipe(
-      tap(contacts => console.log("fetched data")),
+      tap(_ => console.log("fetched data")),
       catchError(this.handleError<Contact[]>('searchContacts', []))
+    );
+  }
+
+  getContact(id: number): Observable<Contact> {
+    return this.http.get<Contact>(`${this.contactsUrl}/${id}`).pipe(
+      tap(_ => console.log("fetched contact")),
+      catchError(this.handleError<Contact>(`getHero id=${id}`))
     );
   }
 
@@ -27,5 +34,7 @@ export class ContactService {
       return of(result as T);
     };
   }
+
+
 
 }

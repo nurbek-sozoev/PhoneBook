@@ -25,10 +25,11 @@ namespace PhoneBook.Controllers
         }
 
         [HttpGet("{id}", Name = "GetContact")]
-        public ActionResult<Contact> FindById(string id)
+        public ActionResult<Contact> FindById(long id)
         {
             return new Contact
             {
+                Id = 1,
                 Name = "Созоев Нурбек Алмасович",
                 Email = "sozoev@gmail.com",
                 Organization = "IT-Attractor",

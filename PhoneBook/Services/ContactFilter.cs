@@ -15,6 +15,7 @@ namespace PhoneBook.Services
             {
                 new Contact
                 {
+                    Id = 1,
                     Name = "Созоев Нурбек Алмасович",
                     Email = "sozoev@gmail.com",
                     Organization = "IT-Attractor",
@@ -39,6 +40,7 @@ namespace PhoneBook.Services
                 },
                 new Contact
                 {
+                    Id = 2,
                     Name = "Петров Петр Алесеевич",
                     Email = "petr@gmail.com",
                     Organization = "SoftTechical Company LTD",
@@ -58,6 +60,7 @@ namespace PhoneBook.Services
                 },
                 new Contact
                 {
+                    Id = 3,
                     Name = "Иванов Михаил Алесеевич",
                     Email = "ivin@gmail.com",
                     Organization = "MicroHard Techical Company LTD",
