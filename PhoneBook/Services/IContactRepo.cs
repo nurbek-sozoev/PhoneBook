@@ -3,7 +3,7 @@ using PhoneBook.ViewModels;
 
 namespace PhoneBook.Services
 {
-    public interface IContactFilter
+    public interface IContactRepo
     {
         List<Contact> Search(string searchCriteria);
         Contact FindById(long id);
@@ -11,5 +11,6 @@ namespace PhoneBook.Services
         void Save(Contact contact);
         void Delete(long id);
         long LastId();
+        int Count();
     }
 }

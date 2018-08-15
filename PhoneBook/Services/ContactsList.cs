@@ -1,41 +1,42 @@
-using System.Collections.Generic;
-using NUnit.Framework;
-using PhoneBook.Services;
+﻿using System.Collections.Generic;
 using PhoneBook.ViewModels;
 
-namespace PhoneBook.Test
+namespace PhoneBook.Services
 {
-    [TestFixture]
-    public class ContractFilterTests
+    public static class ContactsList
     {
-        private List<Contact> _contacts = new List<Contact>(new []
+        public static List<Contact> Contacts()
+        {
+            return  new List<Contact>(new []
             {
                 new Contact
                 {
-                    Name = "Созоев Нурбек Алмасович",
-                    Email = "sozoev@gmail.com",
-                    Organization = "IT-Attractor",
+                    Id = 1,
+                    Name = "Иванов Иван Иванович",
+                    Email = "ivan@gmail.com",
+                    Organization = "MacroSoft LTD",
                     PhoneNumbers = new List<PhoneNumber>(new[]
                     {
                         new PhoneNumber
                         {
-                            Number = "+996 798 690119",
+                            Number = "+996 708 699119",
                             Type = "mobile"
                         },
                         new PhoneNumber
                         {
-                            Number = "+996 708 691119",
+                            Number = "+996 708 699119",
                             Type = "home"
                         },
                         new PhoneNumber
                         {
-                            Number = "+996 799 699119",
+                            Number = "+996 708 699119",
                             Type = "work"
                         }
                     })
                 },
                 new Contact
                 {
+                    Id = 2,
                     Name = "Петров Петр Алесеевич",
                     Email = "petr@gmail.com",
                     Organization = "SoftTechical Company LTD",
@@ -52,35 +53,28 @@ namespace PhoneBook.Test
                             Type = "home"
                         }
                     })
+                },
+                new Contact
+                {
+                    Id = 3,
+                    Name = "Иванов Михаил Алесеевич",
+                    Email = "ivin@gmail.com",
+                    Organization = "MicroHard Techical Company LTD",
+                    PhoneNumbers = new List<PhoneNumber>(new[]
+                    {
+                        new PhoneNumber
+                        {
+                            Number = "+996 998 900109",
+                            Type = "mobile"
+                        },
+                        new PhoneNumber
+                        {
+                            Number = "+996 888 999009",
+                            Type = "work"
+                        }
+                    })
                 }
             });
-
-        [Test]
-        public void SearchByNameTest()
-        {
-            var filter = new ContactFilter(_contacts);
-            List<Contact> result = filter.Search("Созоев Нурбек");
-
-            Assert.IsTrue(result.Count == 1);
-            Assert.AreEqual("Созоев Нурбек Алмасович", result[0].Name);
-        }
-
-        [Test]
-        public void SearchByPhoneNumberTest()
-        {
-            var filter = new ContactFilter(_contacts);
-            List<Contact> result = filter.Search("699");
-
-            Assert.IsTrue(result.Count == 2);
-        }
-
-        [Test]
-        public void SearchByEmtyCriteriaTest()
-        {
-            var filter = new ContactFilter(_contacts);
-            List<Contact> result = filter.Search(" ");
-
-            Assert.IsTrue(result.Count == 2);
         }
     }
 }

@@ -10,33 +10,33 @@ namespace PhoneBook.Controllers
     [ApiController]
     public class ContactController : Controller
     {
-        private readonly IContactFilter _filter;
+        private readonly IContactRepo _repo;
 
-        public ContactController(IContactFilter filter)
+        public ContactController(IContactRepo repo)
         {
-            _filter = filter;
+            _repo = repo;
         }
 
         [HttpGet]
         public IEnumerable<Contact> Search(string searchCriteria)
         {
             Console.WriteLine($"Search by {searchCriteria}");
-            return _filter.Search(searchCriteria);
+            return _repo.Search(searchCriteria);
         }
 
         [HttpGet("{id}", Name = "GetContact")]
         public ActionResult<Contact> FindById(long id)
         {
             Console.WriteLine($"Find contact by {id}");
-            return _filter.FindById(id);
+            return _repo.FindById(id);
         }
 
         [HttpPost]
         public IActionResult Create(Contact contact)
         {
             Console.WriteLine($"Create contact {contact.Name}");
-            contact.Id = _filter.LastId();
-            _filter.Add(contact);
+            contact.Id = _repo.LastId();
+            _repo.Add(contact);
             return NoContent();
         }
 
@@ -44,7 +44,7 @@ namespace PhoneBook.Controllers
         public IActionResult Update(Contact contact)
         {
             Console.WriteLine($"Update contact {contact.Name}");
-            _filter.Save(contact);
+            _repo.Save(contact);
             return NoContent();
         }
 
@@ -52,7 +52,7 @@ namespace PhoneBook.Controllers
         public IActionResult Delete(long id)
         {
             Console.WriteLine($"Delete contact {id}");
-            _filter.Delete(id);
+            _repo.Delete(id);
             return NoContent();
         }
     }
