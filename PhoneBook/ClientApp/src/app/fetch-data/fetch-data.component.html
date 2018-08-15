@@ -1,16 +1,47 @@
-<p *ngIf="!contacts"><em>Loading...</em></p>
+<div class="row">
+  <div class="col-sm-12">
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand">Мои контакты</a>
+      <div class="input-group col-md-4">
+        <input #searchInput class="form-control py-2 border-right-0 border" (keyup)="search(searchInput.value)" type="search" placeholder="поиск">
+        <span class="input-group-append">
+          <button class="btn btn-outline-secondary border-left-0 border" (click)="search(searchInput.value)" type="button">
+              <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+    </nav>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <p *ngIf="!contacts$"><em>Loading...</em></p>
+    <table class="table" *ngIf="contacts$">
+      <thead>
+      <tr>
+        <th>Контакты</th>
+        <th>Опции</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let contact of contacts$ | async">
+        <td>
+          <app-contact-row [contact]="contact"></app-contact-row>
+        </td>
+        <td>
+          <button type="button" class="btn btn-info btn-sm">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<table class="table" *ngIf="contacts">
-  <thead>
-    <tr>
-      <th>Контакты</th>
-      <th>Опции</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let contact of contacts">
-      <td><app-contact-row [contact]="contact"></app-contact-row></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+
+
+

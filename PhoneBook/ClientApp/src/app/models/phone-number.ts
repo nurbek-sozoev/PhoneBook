@@ -1,4 +1,4 @@
-﻿export interface PhoneNumber {
+﻿export class PhoneNumber {
   type: string;
   number: string;
 }

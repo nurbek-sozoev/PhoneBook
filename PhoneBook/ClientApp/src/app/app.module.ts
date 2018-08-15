@@ -6,14 +6,13 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ContactRowComponent } from './contact-row/contact-row.component';
+import { ContactService } from "./contact.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     FetchDataComponent,
     ContactRowComponent
   ],
@@ -26,7 +25,9 @@ import { ContactRowComponent } from './contact-row/contact-row.component';
       { path: '', component: FetchDataComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [],
+  providers: [
+    ContactService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

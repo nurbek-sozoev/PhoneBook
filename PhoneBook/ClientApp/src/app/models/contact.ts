@@ -1,6 +1,6 @@
 ﻿import { PhoneNumber } from "./phone-number";
 
-export interface Contact {
+export class Contact {
   name: string;
   email: string;
   organization: string;

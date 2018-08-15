@@ -1,18 +1,35 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component} from '@angular/core';
 import { Contact } from "../models/contact";
+import { ContactService } from "../contact.service";
+import { Observable } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
+
 export class FetchDataComponent {
-  public contacts: Contact[];
+  contacts$: Observable<Contact[]>;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Contact[]>(baseUrl + 'api/SampleData/Contacts').subscribe(result => {
-      this.contacts = result;
-    }, error => console.error(error));
+  private searchCriterias = new Subject<string>();
+
+  constructor(private contactService: ContactService) {
+    console.log("Search");
+    this.search('');
   }
-}
 
+  search(searchCriteria: string) {
+    this.searchCriterias.next(searchCriteria)
+  }
+
+  ngOnInit(): void {
+    this.contacts$ = this.searchCriterias.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.contactService.searchContacts(term))
+    );
+  }
+
+}
