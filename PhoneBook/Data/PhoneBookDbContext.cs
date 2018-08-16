@@ -6,11 +6,11 @@ using PhoneBook.ViewModels;
 
 namespace PhoneBook.Data
 {
-    public partial class PhoneBookDbContext : DbContext
+    public class PhoneBookDbContext : DbContext
     {
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<PhoneNumber> PhoneNumbers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public PhoneBookDbContext()
         {

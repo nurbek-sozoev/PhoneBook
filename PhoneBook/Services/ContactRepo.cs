@@ -30,19 +30,14 @@ namespace PhoneBook.Services
 
         public void Delete(long id)
         {
-            var contact = _dbContext.Contacts.Find(id);
+            var contact = FindById(id);
             _dbContext.Contacts.Remove(contact);
             _dbContext.SaveChanges();
         }
 
         public Contact FindById(long id)
         {
-            return _dbContext.Contacts.Find(id);
-        }
-
-        public int Count()
-        {
-            return _dbContext.Contacts.Count();
+            return _dbContext.Contacts.Include(c => c.PhoneNumbers).First(c => c.Id == id);
         }
 
         public List<Contact> Search(string searchCriteria)

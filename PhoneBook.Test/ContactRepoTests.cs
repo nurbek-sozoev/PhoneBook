@@ -1,5 +1,9 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Moq;
+using Moq.EntityFrameworkCore;
 using NUnit.Framework;
+using PhoneBook.Data;
 using PhoneBook.Services;
 using PhoneBook.ViewModels;
 
@@ -13,54 +17,45 @@ namespace PhoneBook.Test
         [SetUp]
         public void Init()
         {
-           _subject = new ContactRepo(new List<Contact>(new []
-           {
-               new Contact
-               {
-                   Id = 1,
-                   Name = "Иванов Иван Иванович",
-                   Email = "ivan@gmail.com",
-                   Organization = "MacroSoft LTD",
-                   PhoneNumbers = new List<PhoneNumber>(new[]
-                   {
-                       new PhoneNumber
-                       {
-                           Number = "+996 798 690119",
-                           Type = "mobile"
-                       },
-                       new PhoneNumber
-                       {
-                           Number = "+996 708 691119",
-                           Type = "home"
-                       },
-                       new PhoneNumber
-                       {
-                           Number = "+996 799 699119",
-                           Type = "work"
-                       }
-                   })
-               },
-               new Contact
-               {
-                   Id = 2,
-                   Name = "Петров Петр Алесеевич",
-                   Email = "petr@gmail.com",
-                   Organization = "SoftTechical Company LTD",
-                   PhoneNumbers = new List<PhoneNumber>(new[]
-                   {
-                       new PhoneNumber
-                       {
-                           Number = "+996 788 600119",
-                           Type = "mobile"
-                       },
-                       new PhoneNumber
-                       {
-                           Number = "+996 998 699009",
-                           Type = "home"
-                       }
-                   })
-               }
-           }));
+            var contacts = new ObservableCollection<Contact>(new[]
+            {
+                new Contact
+                {
+                    Id = 1,
+                    Name = "Иванов Иван Иванович",
+                    Email = "ivan@gmail.com",
+                    Organization = "MacroSoft LTD",
+                    PhoneNumbers = new List<PhoneNumber>(new[]
+                    {
+                        new PhoneNumber
+                        {
+                            Number = "+996 799 699119",
+                            Type = "work"
+                        }
+                    })
+                },
+                new Contact
+                {
+                    Id = 2,
+                    Name = "Петров Петр Алесеевич",
+                    Email = "petr@gmail.com",
+                    Organization = "SoftTechical Company LTD",
+                    PhoneNumbers = new List<PhoneNumber>(new[]
+                    {
+                        new PhoneNumber
+                        {
+                            Number = "+996 998 699009",
+                            Type = "home"
+                        }
+                    })
+                }
+            });
+
+            var mock = new Mock<PhoneBookDbContext>();
+            mock.Setup(ctx => ctx.Contacts)
+                .ReturnsDbSet(new FakeDbSet<Contact>(contacts));
+
+           _subject = new ContactRepo(mock.Object);
         }
 
         [Test]
@@ -76,42 +71,14 @@ namespace PhoneBook.Test
         public void SearchByPhoneNumberTest()
         {
             List<Contact> result = _subject.Search("699");
-            Assert.IsTrue(result.Count == 2);
+            Assert.AreEqual(2, result.Count);
         }
 
         [Test]
         public void SearchByEmtyCriteriaTest()
         {
             List<Contact> result = _subject.Search(" ");
-            Assert.IsTrue(result.Count == 2);
-        }
-
-        [Test]
-        public void FindByIdTest()
-        {
-            Contact result = _subject.FindById(1);
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void LastIdTest()
-        {
-            var id = _subject.LastId();
-            Assert.AreEqual(3, id);
-        }
-
-        [Test]
-        public void AddTest()
-        {
-            _subject.Add(new Contact());
-            Assert.AreEqual(3, _subject.Count());
-        }
-
-        [Test]
-        public void DeleteTest()
-        {
-            _subject.Delete(1);
-            Assert.AreEqual(1, _subject.Count());
+            Assert.AreEqual(2, result.Count);
         }
     }
 }
