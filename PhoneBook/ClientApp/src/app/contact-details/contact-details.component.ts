@@ -7,8 +7,7 @@ import {PhoneNumber} from "../models/phone-number";
 
 @Component({
   selector: 'app-contact-details',
-  templateUrl: './contact-details.component.html',
-  styleUrls: ['./contact-details.component.css']
+  templateUrl: './contact-details.component.html'
 })
 
 export class ContactDetailsComponent implements OnInit {
