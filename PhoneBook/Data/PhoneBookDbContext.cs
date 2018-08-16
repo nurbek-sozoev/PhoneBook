@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using PhoneBook.ViewModels;
@@ -20,7 +21,14 @@ namespace PhoneBook.Data
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql("Server=localhost;Database=phone_book;UserId=postgres");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {}
+        {
+
+        }
     }
 }

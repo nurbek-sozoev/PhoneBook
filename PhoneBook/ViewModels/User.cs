@@ -2,7 +2,7 @@
 
 namespace PhoneBook.ViewModels
 {
-    public class User: IdentityUser
+    public class User: IdentityUser<string>
     {
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PhoneBook.ViewModels
@@ -10,6 +11,7 @@ namespace PhoneBook.ViewModels
         public string Email { get; set; }
         public string Organization { get; set; }
         public IEnumerable<PhoneNumber> PhoneNumbers { get; set; }
+
         public string UserId { get; set; }
         public User User { get; set; }
 

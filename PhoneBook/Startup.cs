@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using PhoneBook.Data;
 using PhoneBook.Services;
 using PhoneBook.ViewModels;
@@ -26,13 +27,15 @@ namespace PhoneBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().AddJsonOptions(options =>
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<PhoneBookDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("PhoneBookDbContextConnection")));
 
             services.AddDefaultIdentity<User>().AddEntityFrameworkStores<PhoneBookDbContext>();
 
-            services.AddSingleton<IContactRepo, ContactRepo>();
+            services.AddScoped<IContactRepo, ContactRepo>();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
             // Identity Configuration

@@ -35,7 +35,6 @@ namespace PhoneBook.Controllers
         public IActionResult Create(Contact contact)
         {
             Console.WriteLine($"Create contact {contact.Name}");
-            contact.Id = _repo.LastId();
             _repo.Add(contact);
             return NoContent();
         }

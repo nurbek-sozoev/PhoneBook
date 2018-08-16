@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PhoneBook.Data;
 
 namespace PhoneBook.Migrations
@@ -14,7 +15,9 @@ namespace PhoneBook.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("PhoneBook.ViewModels.Contact", b =>
                 {
@@ -90,6 +93,10 @@ namespace PhoneBook.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = "1bc4a831-12e3-49d7-bbf4-2564b318a988", AccessFailedCount = 0, ConcurrencyStamp = "5baaddb5-1f2c-4704-a63c-dd050468172f", Email = "admin@mail.com", EmailConfirmed = false, LockoutEnabled = false, PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "admin" }
+                    );
                 });
 
             modelBuilder.Entity("PhoneBook.ViewModels.Contact", b =>

@@ -10,7 +10,5 @@ namespace PhoneBook.Services
         void Add(Contact contact);
         void Save(Contact contact);
         void Delete(long id);
-        long LastId();
-        int Count();
     }
 }

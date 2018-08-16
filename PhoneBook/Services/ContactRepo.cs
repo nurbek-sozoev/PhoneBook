@@ -1,64 +1,59 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using PhoneBook.Data;
 using PhoneBook.ViewModels;
 
 namespace PhoneBook.Services
 {
     public class ContactRepo : IContactRepo
     {
-        private readonly List<Contact> _contacts;
+        private readonly PhoneBookDbContext _dbContext;
 
-        public ContactRepo()
+        public ContactRepo(PhoneBookDbContext dbContext)
         {
-            _contacts = ContactsList.Contacts();
-        }
-
-        public ContactRepo(List<Contact> contacts)
-        {
-            _contacts = contacts;
+            _dbContext = dbContext;
         }
 
         public void Add(Contact contact)
         {
-            _contacts.Add(contact);
+            _dbContext.Contacts.Add(contact);
+            _dbContext.SaveChanges();
         }
 
         public void Save(Contact contact)
         {
+            //TODO: Переделать обновление контакта.
             Delete(contact.Id);
-            _contacts.Add(contact);
+            Add(contact);
         }
 
         public void Delete(long id)
         {
-            var c = FindById(id);
-            _contacts.Remove(c);
+            var contact = _dbContext.Contacts.Find(id);
+            _dbContext.Contacts.Remove(contact);
+            _dbContext.SaveChanges();
         }
 
         public Contact FindById(long id)
         {
-            return _contacts.First(c => c.Id == id);
-        }
-
-        public long LastId()
-        {
-            var maxId = _contacts.Max(c => c.Id);
-            return maxId + 1;
+            return _dbContext.Contacts.Find(id);
         }
 
         public int Count()
         {
-            return _contacts.Count;
+            return _dbContext.Contacts.Count();
         }
 
         public List<Contact> Search(string searchCriteria)
         {
             if (string.IsNullOrEmpty(searchCriteria))
-                return _contacts;
+                return _dbContext.Contacts.Include(c => c.PhoneNumbers).ToList();
 
             var criteria = searchCriteria.ToLower().Trim();
 
-            return _contacts.Where(
+            return _dbContext.Contacts.Include(c => c.PhoneNumbers).ToList()
+                .Where(
                     c => c.ToString().ToLower().Contains(criteria)
                 ).OrderBy(c => c.Name).ToList();
         }
