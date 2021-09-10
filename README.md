@@ -1,5 +1,5 @@
 # PhoneBook - Телефонный справочник
-Небольшое (тестовое) веб-приложение на ASP.NET Core MVC и Angular.
+Тестовое веб-приложение на ASP.NET Core MVC и Angular.
 
 # Зависимости
 - nodejs/npm (https://nodejs.org/)
